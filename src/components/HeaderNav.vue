@@ -1,30 +1,66 @@
 <template>
   <div class="header-nav">
-    <button class="btn btn-control" @click="changeTheme">Theme</button>
-    <button class="btn btn-control" @click="changeLanguage">Language</button>
-    <button class="btn btn-control" @click="changeDegree">Degree</button>
+    <button 
+      class="btn btn-control" 
+      @click="changeTheme"
+      >{{ changeTitleTheme }}
+    </button>
+
+    <button 
+      class="btn btn-control" 
+      @click="changeLanguage"
+      >{{ changeTitleLang }}
+    </button>
+
+    <button 
+      class="btn btn-control" 
+      @click="changeDegree"
+      > {{ changeTitleDeg }}
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   props:['theme', 'lang', 'degree'],
-  name: "Header",
+
+  data() {
+    return {
+      titleTheme: true,
+      titleLang : true,
+      titleDeg  : true
+    }
+  },
+
+  computed: {
+    changeTitleTheme() {
+      return this.titleTheme ? 'темная тема' : 'Светлая тема'
+    },
+    changeTitleLang() {
+      return this.titleLang ? 'ENG' : 'RU'
+    },
+    changeTitleDeg() {
+      return this.titleDeg ? 'Фаренгейт' : 'Цельсия'
+    }
+  },
 
   methods: {
     changeTheme() {
       const newTheme = this.$props.theme === 'light' ? 'dark' : 'light';
       this.$emit('change-theme', newTheme)
+      this.titleTheme = !this.titleTheme
     },
 
     changeLanguage() {
       const newLang = this.$props.lang === 'ru' ? 'en' : 'ru';
       this.$emit('change-lang', newLang);
+      this.titleLang = !this.titleLang
     },
 
     changeDegree() {
       const newDegree = this.$props.degree === 'celsius' ? 'far' : 'celsius';
       this.$emit('change-degree', newDegree);
+      this.titleDeg = !this.titleDeg
     }
   }
 }
@@ -53,5 +89,9 @@ export default {
 
 .btn-control:hover {
   background-color: rgb(57, 107, 207);
+}
+
+.dark-info .header-nav {
+  background-color: rgb(0, 0, 0);
 }
 </style>

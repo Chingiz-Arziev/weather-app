@@ -30,7 +30,9 @@ export default {
     return {
       theme: 'light',
       lang: 'ru',
-      degree: 'celsius'
+      degree: 'celsius',
+
+      bgImga: ''
     }
   }
 }

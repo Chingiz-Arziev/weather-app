@@ -16,6 +16,10 @@
         <li class=" info feels"> <img class="icon" src="../assets/img/Dots.png"> Ощущаемая:  {{feels}}</li>
       </ul>
 
+      <br>
+      <hr>
+      <br>
+
       <ul class="wind-info">
         <li class=" info humidity"> <img class="icon" src="../assets/img/Dry.png"> Влажность:   {{humidity}}</li>
         <li class=" info pressure"> <img class="icon" src="../assets/img/Barometr.png"> Давление:    {{pressure}}</li>
@@ -51,7 +55,6 @@
 
     watch: {
       degree: function(degree) {
-        console.log('degree changed', degree);
         degree === 'celsius' ? this.celsiusToFaringate() : this.fahrenheitToСelsius();
       }
     },
@@ -63,6 +66,9 @@
 
       currentLabel: function () {
         return langData['current'][this.$props.lang];
+      },
+      currentLabel: function() {
+        return langData['min'][this.$props.lang];
       }
     },
 
@@ -81,7 +87,9 @@
           return;
         }
 
-        console.log(data);
+        if (data.weather.main === 'clear') {
+          
+        }
 
         this.current = Math.floor(data.main.temp)
         this.min = Math.floor(data.main.temp_min)

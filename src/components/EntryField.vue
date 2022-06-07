@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <form @submit.prevent="input">
+  <div >
+    <form :class="weatherInfo" @submit.prevent="input">
       <input
         class="input"
         :class="this.inputColor"
@@ -17,7 +17,7 @@
 
 <script>
   export default {
-    props: ['errorMessage'],
+    props: ['errorMessage', 'theme'],
     data() {
       return {
         city: '',
@@ -31,7 +31,10 @@
     computed: {
       inputColor: function () {
         return this.$props.errorMessage ? 'error' : 'complete';
-      }
+      },
+      weatherInfo: function () {
+        return this.$props.theme === 'light' ? 'light-info' : 'dark-info';
+      },
     }
   }
 
@@ -44,14 +47,14 @@
     border: none;
     border-bottom: 1px solid rgb(174, 200, 255);
     padding: 0px 10px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   input:focus {
     outline: none;
   }
 
-  .btn {
+ .btn {
     width: 300px;
     height: 50px;
     border: none;
@@ -73,5 +76,51 @@
 
   .complete {
     border-bottom: 1px solid green;
+  }
+
+
+
+
+
+  .dark-info .btn{
+    background-color: rgb(30, 51, 93);
+  }
+
+  .dark-info .btn:hover{
+    background-color: rgb(24, 81, 187);
+  }
+
+  .dark-info .input{
+    background-color: rgb(39, 44, 54);
+  }
+  .dark-info .input::-webkit-input-placeholder {
+    color: #fff;
+  }
+
+  .dark-info .complete {
+    border-bottom: 1px solid rgb(24, 24, 24);
+  }
+
+
+
+
+
+   .light-info .btn{
+    background-color: rgb(13, 92, 251);
+  }
+
+  .light-info .btn:hover{
+    background-color: rgb(57, 107, 207);
+  }
+
+  .light-info .input{
+    background-color: rgb(255, 255, 255);
+  }
+  .light-info .input::-webkit-input-placeholder {
+    color: rgb(36, 36, 36);
+  }
+
+  .light-info .complete {
+    border-bottom: 1px solid rgb(10, 4, 64);
   }
 </style>
