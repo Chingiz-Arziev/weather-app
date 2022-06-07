@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <Header
+    <header-nav
       :theme="theme"
       :lang="lang"
       :degree="degree"
@@ -19,18 +19,18 @@
 
 <script>
 import ShowWeather from './components/ShowWeather'
-import Header from "./components/Header";
+import HeaderNav from "./components/HeaderNav";
 
 export default {
   components: {
-    Header,
+    'header-nav': HeaderNav,
     'show-weather': ShowWeather
  },
   data() {
     return {
       theme: 'light',
       lang: 'ru',
-      degree: 'celci'
+      degree: 'celsius'
     }
   }
 }
@@ -46,9 +46,10 @@ export default {
 }
 
 .app {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgb(255, 255, 255);

@@ -52,13 +52,13 @@
     watch: {
       degree: function(degree) {
         console.log('degree changed', degree);
-        degree === 'celci' ? this.celciToFaringate() : this.faringateToCelci();
+        degree === 'celsius' ? this.celsiusToFaringate() : this.fahrenheitToСelsius();
       }
     },
 
     computed: {
       weatherInfo: function () {
-        return this.$props.theme === 'light' ? 'dark-info' : 'light-info';
+        return this.$props.theme === 'light' ? 'light-info' : 'dark-info';
       },
 
       currentLabel: function () {
@@ -78,9 +78,10 @@
 
         if (data.cod >= 400) {
           this.errorMessage = data.message;
-
           return;
         }
+
+        console.log(data);
 
         this.current = Math.floor(data.main.temp)
         this.min = Math.floor(data.main.temp_min)
@@ -92,12 +93,18 @@
         this.speed = Math.floor(data.wind.speed)
       },
 
-      celciToFaringate() {
-        this.current = this.current * 100;
+      celsiusToFaringate() {
+        this.current = Math.round((this.current - 32) / 1.8);
+        this.min = Math.round((this.current - 32) / 1.8);
+        this.max = Math.round((this.current - 32) / 1.8);
+        this.feels = Math.round((this.current - 32) / 1.8);
       },
 
-      faringateToCelci() {
-        this.current = this.current / 100;
+      fahrenheitToСelsius() {
+        this.current = Math.round((this.current + 32) * 1.8);
+        this.min = Math.round((this.current + 32) * 1.8);
+        this.max = Math.round((this.current + 32) * 1.8);
+        this.feels = Math.round((this.current + 32) * 1.8);
       }
     },
 
@@ -126,7 +133,20 @@
   width: 370px;
   padding: 35px;
   border-radius: 5px;
-  box-shadow: 0 4px 16px #424242;
+  box-shadow: 0 4px 16px #000a1a;
+  background-color: #000a1a;
+}
+
+.dark-info h1{
+  color: rgb(255, 255, 255);
+}
+
+.dark-info li{
+  color: rgb(255, 255, 255);
+}
+
+.dark-info img{
+  color: rgb(255, 255, 255);
 }
 
  .info {

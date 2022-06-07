@@ -1,5 +1,53 @@
 {
+  "placeholder": {
+    "ru": "Введите город",
+    "en": "Choose city"
+  },
+  "btn": {
+    "ru": "Узнать погоду",
+    "en": "Get Weather"
+  },
+  "title": {
+    "ru": "Название города",
+    "en": "Name city"
+  },
   "current": {
+    "ru": "Текущая",
+    "en": "Current"
+  },
+  "min": {
+    "ru": "Минимальная",
+    "en": "Minimal"
+  },
+  "max": {
+    "ru": "Максимальная",
+    "en": "Maximal"
+  },
+  "feels": {
+    "ru": "Ощущаемая",
+    "en": "Feels like"
+  },
+  "humidity": {
+    "ru": "Влажность",
+    "en": "humidity"
+  },
+  "pressure": {
+    "ru": "Давление",
+    "en": "Pressure"
+  },
+  "speed": {
+    "ru": "Скорость ветра",
+    "en": "Wind speed"
+  },
+  "theme": {
+    "ru": "Текущая",
+    "en": "Current"
+  },
+  "lang": {
+    "ru": "Текущая",
+    "en": "Current"
+  },
+  "deegree": {
     "ru": "Текущая",
     "en": "Current"
   }

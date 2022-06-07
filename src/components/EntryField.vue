@@ -7,8 +7,10 @@
         placeholder="Веддите название города"
         v-model="city"
       >
-
-      <button class="btn" @click="input">Узнать погоду</button>
+      <button 
+        class="btn" 
+        @click="input"
+      >Узнать погоду</button>
     </form>
   </div>
 </template>
@@ -40,7 +42,7 @@
     width: 300px;
     height: 50px;
     border: none;
-    border-bottom: 1px solid rgb(13, 92, 251);
+    border-bottom: 1px solid rgb(174, 200, 255);
     padding: 0px 10px;
     font-size: 16px;
   }
@@ -51,7 +53,7 @@
 
   .btn {
     width: 300px;
-    height: 40px;
+    height: 50px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -70,6 +72,6 @@
   }
 
   .complete {
-    border: 1px solid green;
+    border-bottom: 1px solid green;
   }
 </style>
