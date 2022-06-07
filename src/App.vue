@@ -30,10 +30,13 @@ export default {
     return {
       theme: 'light',
       lang: 'ru',
-      degree: 'celsius',
-
-      bgImga: ''
+      degree: 'celsius'
     }
+  },
+  computed: {
+    weatherAspect: function () {
+        return this.$props.aspect === 'Clear' ? 'weather-clear' : ''
+      },
   }
 }
 
@@ -56,5 +59,4 @@ export default {
   align-items: center;
   background-color: rgb(255, 255, 255);
 }
-
 </style>

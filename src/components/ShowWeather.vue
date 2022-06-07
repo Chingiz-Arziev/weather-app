@@ -4,28 +4,27 @@
         @search-city="getData($event)"
         :error-message="errorMessage"
       />
+      <div class="display-info" :class="weatherAspect">
+        <h1 class="title">{{title}}</h1>
+        <ul class="temp">
+          <li class=" info current"> <img class="icon" src="../assets/img/Termometr.png">
+            {{ currentLabel }}:  {{current}}
+          </li>
+          <li class=" info min"> <img class="icon" src="../assets/img/Termometr.png"> Минимальная:  {{min}}</li>
+          <li class=" info max"> <img class="icon" src="../assets/img/Termometr.png"> Максимальная: {{max}}</li>
+          <li class=" info feels"> <img class="icon" src="../assets/img/Dots.png"> Ощущаемая:  {{feels}}</li>
+        </ul>
 
-    <div class="display-info">
-      <h1 class="title">{{title}}</h1>
-      <ul class="temp">
-        <li class=" info current"> <img class="icon" src="../assets/img/Termometr.png">
-          {{ currentLabel }}:  {{current}}
-        </li>
-        <li class=" info min"> <img class="icon" src="../assets/img/Termometr.png"> Минимальная:  {{min}}</li>
-        <li class=" info max"> <img class="icon" src="../assets/img/Termometr.png"> Максимальная: {{max}}</li>
-        <li class=" info feels"> <img class="icon" src="../assets/img/Dots.png"> Ощущаемая:  {{feels}}</li>
-      </ul>
+        <br>
+        <hr>
+        <br>
 
-      <br>
-      <hr>
-      <br>
-
-      <ul class="wind-info">
-        <li class=" info humidity"> <img class="icon" src="../assets/img/Dry.png"> Влажность:   {{humidity}}</li>
-        <li class=" info pressure"> <img class="icon" src="../assets/img/Barometr.png"> Давление:    {{pressure}}</li>
-        <li class=" info speed"> <img class="icon" src="../assets/img/Wind.png"> Скорость ветра: {{speed}}</li>
-      </ul>
-    </div>
+        <ul class="wind-info">
+          <li class=" info humidity"> <img class="icon" src="../assets/img/Dry.png"> Влажность:   {{humidity}}</li>
+          <li class=" info pressure"> <img class="icon" src="../assets/img/Barometr.png"> Давление:    {{pressure}}</li>
+          <li class=" info speed"> <img class="icon" src="../assets/img/Wind.png"> Скорость ветра: {{speed}}</li>
+        </ul>
+      </div>
   </div>
 </template>
 
@@ -34,7 +33,7 @@
   import langData from '../lang.json';
 
   export default {
-    props: ['theme', 'lang', 'degree'],
+    props: ['theme', 'lang', 'degree', 'aspect'],
 
     data() {
       return {
@@ -50,6 +49,8 @@
         speed: '',
 
         errorMessage: '',
+
+        weatherAspect: ''
       }
     },
 
@@ -63,12 +64,11 @@
       weatherInfo: function () {
         return this.$props.theme === 'light' ? 'light-info' : 'dark-info';
       },
-
+      weatherAspect: function () {
+        return this.$props.aspect === 'Clear' ? 'weather-clear' : ''
+      },
       currentLabel: function () {
         return langData['current'][this.$props.lang];
-      },
-      currentLabel: function() {
-        return langData['min'][this.$props.lang];
       }
     },
 
@@ -87,9 +87,23 @@
           return;
         }
 
-        if (data.weather.main === 'clear') {
-          
+        if (data.weather[0].main === 'Clear') {
+          this.weatherAspect = 'weather-clear'
         }
+
+        if (data.weather[0].main === 'Snow') {
+          this.weatherAspect = 'weather-snow'
+        }
+
+        if (data.weather[0].main === 'Rain') {
+          this.weatherAspect = 'weather-rain'
+        }
+
+        if (data.weather[0].main === 'Clouds') {
+          this.weatherAspect = 'weather-clouds'
+        }
+
+        console.log(data.weather[0].main);
 
         this.current = Math.floor(data.main.temp)
         this.min = Math.floor(data.main.temp_min)
@@ -132,6 +146,8 @@
   padding: 35px;
   border-radius: 5px;
   box-shadow: 0 4px 16px #ccc;
+  background-color: #fff;
+  opacity: 0.9;
 }
 
 .dark-info {
@@ -173,4 +189,19 @@
    padding: 10px;
  }
 
+
+ .weather-clear {
+   background-image: url('https://img4.goodfon.com/wallpaper/nbig/6/61/nebo-oblaka-iasnaia-pogoda-priroda.jpg');
+ }
+
+ .weather-snow {
+   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSehtRLjpMlxJErdzVJueff539-yWkysgiiCw&usqp=CAU');
+ }
+
+ .weather-rain {
+   background-image: url('https://i.pinimg.com/736x/66/f7/d5/66f7d5aaea8b44c6d10244dce9f36e7f.jpg');
+ }
+ .weather-clouds {
+   background-image: url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cmFpbiUyMGNsb3VkfGVufDB8fDB8fA%3D%3D&w=1000&q=80');
+ }
 </style>

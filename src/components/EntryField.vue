@@ -45,7 +45,7 @@
     width: 300px;
     height: 50px;
     border: none;
-    border-bottom: 1px solid rgb(174, 200, 255);
+    border: 1px solid rgb(13, 92, 251);
     padding: 0px 10px;
     font-size: 14px;
   }
@@ -92,13 +92,14 @@
 
   .dark-info .input{
     background-color: rgb(39, 44, 54);
+    color: #fff;
   }
   .dark-info .input::-webkit-input-placeholder {
     color: #fff;
   }
 
   .dark-info .complete {
-    border-bottom: 1px solid rgb(24, 24, 24);
+    border: 1px solid rgb(13, 92, 251);
   }
 
 
@@ -115,12 +116,13 @@
 
   .light-info .input{
     background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
   }
   .light-info .input::-webkit-input-placeholder {
     color: rgb(36, 36, 36);
   }
 
   .light-info .complete {
-    border-bottom: 1px solid rgb(10, 4, 64);
+    border-bottom: 1px solid rgb(13, 92, 251);
   }
 </style>

@@ -1,22 +1,24 @@
 <template>
   <div class="header-nav">
-    <button 
-      class="btn btn-control" 
-      @click="changeTheme"
-      >{{ changeTitleTheme }}
-    </button>
+    <div class="btns">
+      <button 
+        class="btn btn-control" 
+        @click="changeTheme"
+        >{{ changeTitleTheme }}
+      </button>
 
-    <button 
-      class="btn btn-control" 
-      @click="changeLanguage"
-      >{{ changeTitleLang }}
-    </button>
+      <button 
+        class="btn btn-control" 
+        @click="changeLanguage"
+        >{{ changeTitleLang }}
+      </button>
 
-    <button 
-      class="btn btn-control" 
-      @click="changeDegree"
-      > {{ changeTitleDeg }}
-    </button>
+      <button 
+        class="btn btn-control" 
+        @click="changeDegree"
+        > {{ changeTitleDeg }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -34,13 +36,13 @@ export default {
 
   computed: {
     changeTitleTheme() {
-      return this.titleTheme ? 'темная тема' : 'Светлая тема'
+      return this.titleTheme ? 'Темнная тема' : 'Светлая тема'
     },
     changeTitleLang() {
-      return this.titleLang ? 'ENG' : 'RU'
+      return this.titleLang ? 'ENG' : 'RUS'
     },
     changeTitleDeg() {
-      return this.titleDeg ? 'Фаренгейт' : 'Цельсия'
+      return this.titleDeg ? 'Фар' : 'Цел'
     }
   },
 
@@ -74,11 +76,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 16px #ccc;
+  margin-bottom: 5px;
+  border-radius: 5px;
 }
+
 .btn-control {
-  padding: 13px 24px;
+  padding: 13px 23px;
   background-color: rgb(13, 92, 251);
   color: #fff;
   font-size: 14px;
