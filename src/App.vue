@@ -1,19 +1,38 @@
 <template>
   <div class="app">
-    <show-weather/>
+    <Header
+      :theme="theme"
+      :lang="lang"
+      :degree="degree"
+      @change-lang="lang = $event"
+      @change-theme="theme = $event"
+      @change-degree="degree = $event"
+    />
+
+    <show-weather
+      :theme="theme"
+      :lang="lang"
+      :degree="degree"
+    />
   </div>
 </template>
 
 <script>
-
-import EntryField from './components/EntryField'
 import ShowWeather from './components/ShowWeather'
+import Header from "./components/Header";
 
 export default {
   components: {
-    'entry-field': EntryField,
+    Header,
     'show-weather': ShowWeather
  },
+  data() {
+    return {
+      theme: 'light',
+      lang: 'ru',
+      degree: 'celci'
+    }
+  }
 }
 
 </script>
@@ -36,4 +55,3 @@ export default {
 }
 
 </style>
-

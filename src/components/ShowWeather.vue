@@ -1,14 +1,16 @@
 <template>
-  <div class="weather-info">
+  <div :class="weatherInfo">
       <entry-field
-      v-model="title"
-    />
-    <button class="btn" @click="getData">Узнать погоду</button>
+        @search-city="getData($event)"
+        :error-message="errorMessage"
+      />
 
     <div class="display-info">
       <h1 class="title">{{title}}</h1>
       <ul class="temp">
-        <li class=" info current"> <img class="icon" src="../assets/img/Termometr.png"> Текущая:  {{current}}</li>
+        <li class=" info current"> <img class="icon" src="../assets/img/Termometr.png">
+          {{ currentLabel }}:  {{current}}
+        </li>
         <li class=" info min"> <img class="icon" src="../assets/img/Termometr.png"> Минимальная:  {{min}}</li>
         <li class=" info max"> <img class="icon" src="../assets/img/Termometr.png"> Максимальная: {{max}}</li>
         <li class=" info feels"> <img class="icon" src="../assets/img/Dots.png"> Ощущаемая:  {{feels}}</li>
@@ -25,8 +27,11 @@
 
 <script>
   import EntryField from '../components/EntryField'
-  
+  import langData from '../lang.json';
+
   export default {
+    props: ['theme', 'lang', 'degree'],
+
     data() {
       return {
         title: 'Название города',
@@ -38,21 +43,46 @@
 
         humidity: '',
         pressure: '',
-        speed: ''
+        speed: '',
+
+        errorMessage: '',
+      }
+    },
+
+    watch: {
+      degree: function(degree) {
+        console.log('degree changed', degree);
+        degree === 'celci' ? this.celciToFaringate() : this.faringateToCelci();
+      }
+    },
+
+    computed: {
+      weatherInfo: function () {
+        return this.$props.theme === 'light' ? 'dark-info' : 'light-info';
+      },
+
+      currentLabel: function () {
+        return langData['current'][this.$props.lang];
       }
     },
 
     methods: {
-      async getData() {
+      async getData(city) {
+        this.errorMessage = '';
+
         const KEY = '9eb904ebd5ce5f85a7d9a4204c298d91'
-        const API = `https://api.openweathermap.org/data/2.5/weather?q=${this.title}&appid=${KEY}&units=metric`
+        const API = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${KEY}&units=metric`
 
         const response = await fetch(API)
         const data = await response.json()
 
-        console.log(data);
+        if (data.cod >= 400) {
+          this.errorMessage = data.message;
 
-        this.current = Math.floor(data.main.temp) 
+          return;
+        }
+
+        this.current = Math.floor(data.main.temp)
         this.min = Math.floor(data.main.temp_min)
         this.max = Math.floor(data.main.temp_max)
         this.feels = Math.floor(data.main.feels_like)
@@ -60,6 +90,14 @@
         this.humidity = Math.floor(data.main.humidity)
         this.pressure = Math.floor(data.main.pressure)
         this.speed = Math.floor(data.wind.speed)
+      },
+
+      celciToFaringate() {
+        this.current = this.current * 100;
+      },
+
+      faringateToCelci() {
+        this.current = this.current / 100;
       }
     },
 
@@ -71,7 +109,7 @@
 </script>
 
 <style scoped>
-.weather-info {
+.light-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -80,21 +118,16 @@
   border-radius: 5px;
   box-shadow: 0 4px 16px #ccc;
 }
- .btn {
-   width: 300px;
-   height: 40px;
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   margin: 20px 0;
-   background-color: rgb(13, 92, 251);
-   color: #fff;
-   font-size: 14px;
- }
- .btn:hover {
-   background-color: rgb(57, 107, 207);
-   color: #fff;
- }
+
+.dark-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 370px;
+  padding: 35px;
+  border-radius: 5px;
+  box-shadow: 0 4px 16px #424242;
+}
 
  .info {
    margin: 6px 0 0 0;
