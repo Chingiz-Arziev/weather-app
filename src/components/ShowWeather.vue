@@ -10,9 +10,9 @@
           <li class=" info current"> <img class="icon" src="../assets/img/Termometr.png">
             {{ currentLabel }}:  {{current}}
           </li>
-          <li class=" info min"> <img class="icon" src="../assets/img/Termometr.png"> Минимальная:  {{min}}</li>
-          <li class=" info max"> <img class="icon" src="../assets/img/Termometr.png"> Максимальная: {{max}}</li>
-          <li class=" info feels"> <img class="icon" src="../assets/img/Dots.png"> Ощущаемая:  {{feels}}</li>
+          <li class=" info min"> <img class="icon" src="../assets/img/Termometr.png"> {{ minLabel }}:  {{min}}</li>
+          <li class=" info max"> <img class="icon" src="../assets/img/Termometr.png"> {{ maxLabel }}: {{max}}</li>
+          <li class=" info feels"> <img class="icon" src="../assets/img/Dots.png"> {{ feelsLabel }}:  {{feels}}</li>
         </ul>
 
         <br>
@@ -20,9 +20,9 @@
         <br>
 
         <ul class="wind-info">
-          <li class=" info humidity"> <img class="icon" src="../assets/img/Dry.png"> Влажность:   {{humidity}}</li>
-          <li class=" info pressure"> <img class="icon" src="../assets/img/Barometr.png"> Давление:    {{pressure}}</li>
-          <li class=" info speed"> <img class="icon" src="../assets/img/Wind.png"> Скорость ветра: {{speed}}</li>
+          <li class=" info humidity"> <img class="icon" src="../assets/img/Dry.png"> {{ humidityLabel }}:   {{humidity}}</li>
+          <li class=" info pressure"> <img class="icon" src="../assets/img/Barometr.png"> {{ pressureLabel }}:    {{pressure}}</li>
+          <li class=" info speed"> <img class="icon" src="../assets/img/Wind.png"> {{ speedLabel }}: {{speed}}</li>
         </ul>
       </div>
   </div>
@@ -69,6 +69,24 @@
       },
       currentLabel: function () {
         return langData['current'][this.$props.lang];
+      },
+      minLabel() {
+        return langData['min'][this.$props.lang];
+      },
+       maxLabel() {
+        return langData['max'][this.$props.lang];
+      },
+        feelsLabel() {
+        return langData['feels'][this.$props.lang];
+      },
+        humidityLabel() {
+        return langData['humidity'][this.$props.lang];
+      },
+        pressureLabel() {
+        return langData['pressure'][this.$props.lang];
+      },
+        speedLabel() {
+        return langData['speed'][this.$props.lang];
       }
     },
 
