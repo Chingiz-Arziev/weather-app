@@ -1,5 +1,5 @@
 <template>
-  <div class="header-nav">
+  <div class="header-nav" :class="headerTheme">
     <div class="btns">
       <button 
         class="btn btn-control" 
@@ -30,7 +30,8 @@ export default {
     return {
       titleTheme: true,
       titleLang : true,
-      titleDeg  : true
+      titleDeg  : true,
+      theme: 'light'
     }
   },
 
@@ -43,6 +44,9 @@ export default {
     },
     changeTitleDeg() {
       return this.titleDeg ? 'Фар' : 'Цел'
+    },
+    headerTheme() {
+      return this.$props.theme === 'light' ? 'header-light' : 'header-dark'
     }
   },
 
@@ -96,7 +100,19 @@ export default {
   background-color: rgb(57, 107, 207);
 }
 
-.dark-info .header-nav {
-  background-color: rgb(0, 0, 0);
+.header-dark {
+  background-color: #000a1a;
+}
+
+.header-dark .btn-control {
+  background-color: rgb(30, 51, 93);
+}
+
+.header-dark .btn-control:hover {
+  background-color: rgb(57, 107, 207);
+}
+
+.header-lights {
+  background-color: rgb(255, 255, 255);
 }
 </style>
