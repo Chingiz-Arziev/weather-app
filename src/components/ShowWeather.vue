@@ -4,15 +4,27 @@
         @search-city="getData($event)"
         :error-message="errorMessage"
       />
-      <div class="display-info" :class="weatherAspect">
-        <h1 class="title">{{title}}</h1>
+      <div class="display-info">
         <ul class="temp">
-          <li class=" info current"> <img class="icon" src="../assets/img/Termometr.png">
+          <li class=" info current"> 
+            <img class="icon" src="../assets/img/Termometr.png">
             {{ currentLabel }}:  {{current}}
           </li>
-          <li class=" info min"> <img class="icon" src="../assets/img/Termometr.png"> {{ minLabel }}:  {{min}}</li>
-          <li class=" info max"> <img class="icon" src="../assets/img/Termometr.png"> {{ maxLabel }}: {{max}}</li>
-          <li class=" info feels"> <img class="icon" src="../assets/img/Dots.png"> {{ feelsLabel }}:  {{feels}}</li>
+
+          <li class=" info min"> 
+            <img class="icon" src="../assets/img/Termometr.png"> 
+            {{ minLabel }}:  {{min}}
+          </li>
+
+          <li class=" info max"> 
+            <img class="icon" src="../assets/img/Termometr.png"> 
+            {{ maxLabel }}: {{max}}
+          </li>
+
+          <li class=" info feels"> 
+            <img class="icon" src="../assets/img/Dots.png"> 
+            {{ feelsLabel }}:  {{feels}}
+          </li>
         </ul>
 
         <br>
@@ -20,9 +32,20 @@
         <br>
 
         <ul class="wind-info">
-          <li class=" info humidity"> <img class="icon" src="../assets/img/Dry.png"> {{ humidityLabel }}:   {{humidity}}</li>
-          <li class=" info pressure"> <img class="icon" src="../assets/img/Barometr.png"> {{ pressureLabel }}:    {{pressure}}</li>
-          <li class=" info speed"> <img class="icon" src="../assets/img/Wind.png"> {{ speedLabel }}: {{speed}}</li>
+          <li class=" info humidity"> 
+            <img class="icon" src="../assets/img/Dry.png"> 
+            {{ humidityLabel }}:   {{humidity}}
+          </li>
+
+          <li class=" info pressure"> 
+            <img class="icon" src="../assets/img/Barometr.png"> 
+            {{ pressureLabel }}:    {{pressure}}
+          </li>
+
+          <li class=" info speed"> 
+            <img class="icon" src="../assets/img/Wind.png"> 
+            {{ speedLabel }}: {{speed}}
+          </li>
         </ul>
       </div>
   </div>
@@ -37,8 +60,6 @@
 
     data() {
       return {
-        title: 'Название города',
-        date: '',
         current: '',
         min: '',
         max: '',
@@ -49,8 +70,6 @@
         speed: '',
 
         errorMessage: '',
-
-        weatherAspect: ''
       }
     },
 
@@ -63,9 +82,6 @@
     computed: {
       weatherInfo: function () {
         return this.$props.theme === 'light' ? 'light-info' : 'dark-info';
-      },
-      weatherAspect: function () {
-        return this.$props.aspect === 'Clear' ? 'weather-clear' : ''
       },
       currentLabel: function () {
         return langData['current'][this.$props.lang];
@@ -102,26 +118,15 @@
 
         if (data.cod >= 400) {
           this.errorMessage = data.message;
+          this.$emit('change-aspect', 'no-background');
           return;
         }
 
-        if (data.weather[0].main === 'Clear') {
-          this.weatherAspect = 'weather-clear'
+        if (!data.weather[0].main) {
+          this.$emit('change-aspect', 'no-background');
         }
 
-        if (data.weather[0].main === 'Snow') {
-          this.weatherAspect = 'weather-snow'
-        }
-
-        if (data.weather[0].main === 'Rain') {
-          this.weatherAspect = 'weather-rain'
-        }
-
-        if (data.weather[0].main === 'Clouds') {
-          this.weatherAspect = 'weather-clouds'
-        }
-
-        console.log(data.weather[0].main);
+        this.$emit('change-aspect', data.weather[0].main);
 
         this.current = Math.floor(data.main.temp)
         this.min = Math.floor(data.main.temp_min)
@@ -135,16 +140,16 @@
 
       celsiusToFaringate() {
         this.current = Math.round((this.current - 32) / 1.8);
-        this.min = Math.round((this.current - 32) / 1.8);
-        this.max = Math.round((this.current - 32) / 1.8);
-        this.feels = Math.round((this.current - 32) / 1.8);
+        this.min = Math.round((this.min - 32) / 1.8);
+        this.max = Math.round((this.max - 32) / 1.8);
+        this.feels = Math.round((this.feels - 32) / 1.8);
       },
 
       fahrenheitToСelsius() {
         this.current = Math.round((this.current + 32) * 1.8);
-        this.min = Math.round((this.current + 32) * 1.8);
-        this.max = Math.round((this.current + 32) * 1.8);
-        this.feels = Math.round((this.current + 32) * 1.8);
+        this.min = Math.round((this.min + 32) * 1.8);
+        this.max = Math.round((this.max + 32) * 1.8);
+        this.feels = Math.round((this.feels + 32) * 1.8);
       }
     },
 
@@ -191,20 +196,18 @@
   color: rgb(255, 255, 255);
 }
 
- .info {
-   margin: 6px 0 0 0;
-   display: flex;
-   justify-content: space-between;
-   flex-direction: row-reverse;
-
+.info {
+  margin: 6px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
  }
 
  li {
-   list-style-type: none;
-   font-size: 20px;
-   border: 1px solid rgb(226, 226, 226);
-   border-radius: 5px;
-   padding: 10px;
+  list-style-type: none;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 10px;
  }
 
 

@@ -7,10 +7,18 @@
         placeholder="Веддите название города"
         v-model="city"
       >
-      <button 
-        class="btn" 
-        @click="input"
-      >Узнать погоду</button>
+      <div
+        class="error-message" 
+        v-if="errorMessage"
+        >
+        Город не найден
+      </div>
+
+      <button
+        class="btn"
+      >
+        Узнать погоду
+      </button>
     </form>
   </div>
 </template>
@@ -48,6 +56,7 @@
     border: 1px solid rgb(13, 92, 251);
     padding: 0px 10px;
     font-size: 14px;
+    border-radius: 5px;
   }
 
   input:focus {
@@ -79,7 +88,13 @@
   }
 
 
-
+  .error-message {
+    background-color: red;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+  }
 
 
   .dark-info .btn{

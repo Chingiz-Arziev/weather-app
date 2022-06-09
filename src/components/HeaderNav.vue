@@ -1,22 +1,25 @@
 <template>
   <div class="header-nav" :class="headerTheme">
-    <div class="btns">
-      <button 
-        class="btn btn-control" 
+    <div>
+      <button
+        class="btn-control-theme"
+        :class="buttonTheme"
         @click="changeTheme"
-        >{{ changeTitleTheme }}
+      > 1
       </button>
 
-      <button 
-        class="btn btn-control" 
+      <button
+        class="btn-control-lang"
         @click="changeLanguage"
-        >{{ changeTitleLang }}
+      >
+        {{ changeTitleLang }}
       </button>
 
-      <button 
-        class="btn btn-control" 
+      <button
+        class="btn-control-deg"
         @click="changeDegree"
-        > {{ changeTitleDeg }}
+      >
+        {{ changeTitleDeg }}
       </button>
     </div>
   </div>
@@ -28,33 +31,33 @@ export default {
 
   data() {
     return {
-      titleTheme: true,
       titleLang : true,
       titleDeg  : true,
-      theme: 'light'
     }
   },
 
   computed: {
-    changeTitleTheme() {
-      return this.titleTheme ? 'Темнная тема' : 'Светлая тема'
-    },
     changeTitleLang() {
       return this.titleLang ? 'ENG' : 'RUS'
     },
+
     changeTitleDeg() {
-      return this.titleDeg ? 'Фар' : 'Цел'
+      return this.titleDeg ? ' F° ' : ' C° '
     },
+
     headerTheme() {
       return this.$props.theme === 'light' ? 'header-light' : 'header-dark'
+    },
+
+    buttonTheme() {
+      return this.$props.theme === 'light' ? 'light-btn' : 'dark-btn';
     }
   },
 
   methods: {
     changeTheme() {
       const newTheme = this.$props.theme === 'light' ? 'dark' : 'light';
-      this.$emit('change-theme', newTheme)
-      this.titleTheme = !this.titleTheme
+      this.$emit('change-theme', newTheme);
     },
 
     changeLanguage() {
@@ -71,9 +74,7 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
 .header-nav {
   width: 370px;
   height: 80px;
@@ -86,14 +87,14 @@ export default {
   border-radius: 5px;
 }
 
-.btn-control {
-  padding: 13px 23px;
+.btn-control-lang, .btn-control-deg {
+  padding: 15px 45px;
   background-color: rgb(13, 92, 251);
   color: #fff;
-  font-size: 14px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
 }
 
 .btn-control:hover {
@@ -114,5 +115,29 @@ export default {
 
 .header-lights {
   background-color: rgb(255, 255, 255);
+}
+
+.light-btn {
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  background-image: url('../assets/img/moon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(13, 92, 251);
+}
+
+.dark-btn {
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  background-image: url('../assets/img/sun.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(13, 92, 251);
 }
 </style>
